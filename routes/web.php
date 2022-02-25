@@ -47,5 +47,9 @@ Route::middleware([TestTwo::class])->group( function(){
 
 });
 
+Route::get('mgroup',function(){
+
+})->middleware('web');
+
 
 
