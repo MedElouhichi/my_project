@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Http\Request;
+use App\Http\Middleware\TestOne;
+use App\Http\Middleware\TestTwo;
 
 
 /*
@@ -22,21 +24,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/example/{id}',[ExampleController::class,'index'])->middleware([TestOne::class])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::middleware([TestTwo::class])->group( function(){
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        // Uses first & second middleware...
+    Route::get('m1/{id}', function(){
+        return " page 1 avec middleware";
     });
- 
-    Route::get('/user/profile', function () {
-        // Uses first & second middleware...
+
+    
+    Route::get('m2/{id}', function(){
+        return " page 2 avec middleware";
     });
+
+    Route::get('m3/{id}', function(){
+
+    });
+
 });
+
 
 
